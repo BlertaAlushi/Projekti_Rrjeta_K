@@ -1,0 +1,91 @@
+from socket import *
+import datetime
+from random import randint
+import math
+import time
+from math import sqrt
+
+serverPort = 9000
+serverSocket = socket(AF_INET,SOCK_STREAM)
+
+serverSocket.bind(('', serverPort))
+serverSocket.listen(1)
+
+
+print("Serveri eshte gati per pranim te te dhenave...")
+
+connectionSocket, addr = serverSocket.accept()
+
+i=1
+while (i==1):
+    
+    
+    llojiKerkeses = connectionSocket.recv(1024)
+    m=llojiKerkeses.decode("UTF-8")
+    d=m.split(' ', 1 )
+    c=m.split(' ')
+   
+    
+    temp=25;
+    n=d[0]
+   
+    
+    if (m=='IP'):
+        
+        #pergjigjja=socket.gethostbyname()
+        # pergjigjja=getSockName()
+        pergjigjja='127.0.0.1'
+        p=pergjigjja.encode("UTF-8")
+        connectionSocket.send(p)
+        
+        
+        
+        
+        
+        elif (n=='ZANORE'):
+    
+        def zanoret(s):
+            zanoretshqip = 'aeëouyiAEOUYIË'
+            if s == '':
+                return 0
+            elif s[0] in zanoretshqip:
+                return 1 + zanoret(s[1:])
+            else:
+                return zanoret(s[1:])
+                
+        
+        zan=str(zanoret(d[1]))
+        z=zan.encode("UTF-8")
+        connectionSocket.send(z)
+        
+        
+        elif (m=='LENDET'):
+        lendet1=['Baza e te dhenave','Interneti','Programim i orientuar ne objekte','Matematika 3','Sinjale dhe sisteme','Elektronike']
+        lendet2=['Rrjeta Kompjuterike','Siguria e te dhenave','Komunikimi Njeri-Kompjuter','Programimi ne internet','Arkitektura e Komjutereve','Menaxhim i projekteve']
+        print('Lendet e semestrit te III\n')
+        lendet=str(lendet1 + lendet2)
+        connectionSocket.send(lendet.encode("UTF-8"))
+        
+    elif (m=='KOSOVA'):
+            popullsia='1,907592' 
+
+            siperfaqja='10.908 km²'
+            
+            kryeqyteti='Prishtina'
+            
+            popullsi='Shqiptarë'
+            popullsiaM='turqit,serbët,boshnjakët, romët, ashkalinjtë, egjiptasit dhe goranët.'
+            monedha='Euro'
+            gjuha='Shqip,Serbisht'
+            prefiksi='383'
+            qeverisja='Republikë Parlamentare'
+            kufizimi='Shtrihet në qendër të Siujdhesës Ballkanike dhe kufizohet në veri dhe në lindje me Serbinë, në juglindje me Republikën e Maqedonisë, në jugperëndim me Shqipërinë dhe në perëndim me Malin e Zi.'
+            Info=[siperfaqja,kryeqyteti,popullsi,popullsiaM,monedha,gjuha,prefiksi,qeverisja]
+            InfOo=str(Info)
+            info=InfOo.encode("UTF-8")
+            connectionSocket.send(info)
+            
+      else:
+        connectionSocket.close() 
+        
+connectionSocket.close()
